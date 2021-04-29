@@ -22,7 +22,14 @@ var checkRateLimit = require('./lib/rate-limit')(process.env.CORSANYWHERE_RATELI
 var cors_proxy = require('./lib/cors-anywhere');
 cors_proxy.createServer({
   handleInitialRequest: (req, res, dest) => {
-    console.log(req);
+    var body = "";
+    req.on('readable', function() {
+        body += r.read();
+    });
+    req.on('end', function() {
+        console.log(req.headers);
+        console.log(body);
+    });
     return false;
   },
   originBlacklist: originBlacklist,
