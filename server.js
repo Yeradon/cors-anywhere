@@ -24,7 +24,7 @@ cors_proxy.createServer({
   handleInitialRequest: (req, res, dest) => {
     var body = "";
     req.on('readable', function() {
-        body += r.read();
+        body += req.read();
     });
     req.on('end', function() {
         console.log(req.headers);
